@@ -1,0 +1,38 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="custom" class="LoggerAppenderDailyFile">
+        <param name="file" value="./logs/daily-%s.log"/>
+        <param name="DatePattern" value="Y-m-d"/>
+        <layout class="LoggerLayoutPattern">
+            <parm name="conversionPattern" value="[%t] %d{HH:mm:ss,SSS} %-5p %l - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="db" class="LoggerAppenderPDO">
+        <param name="dsn" value="mysql:host=localhost;dbname=logdb" />
+        <param name="user" value="root" />
+        <param name="password" value="9rfcdv4We01coiMs" />
+        <param name="table" value="log4php_log" />
+    </appender>
+
+    <appender name="console" class="LoggerAppenderConsole">
+        <layout class="LoggerLayoutSimple" />
+    </appender>
+
+    <logger name="custom">
+        <level value="INFO"/>
+        <appender_ref ref="custom"/>
+    </logger>
+
+    <logger name="db">
+        <level value="INFO"/>
+        <appender_ref ref="db"/>
+    </logger>
+    <logger name="console">
+        <level value="INFO" />
+        <appender_ref ref="console" />
+    </logger>
+    <root>
+        <level value="WARN"/>
+        <appender_ref ref="custom"/>
+    </root>
+</configuration>
