@@ -10,7 +10,7 @@
     <appender name="db" class="LoggerAppenderPDO">
         <param name="dsn" value="mysql:host=localhost;dbname=logdb" />
         <param name="user" value="root" />
-        <param name="password" value="9rfcdv4We01coiMs" />
+        <param name="password" value="athome233" />
         <param name="table" value="log4php_log" />
     </appender>
 
