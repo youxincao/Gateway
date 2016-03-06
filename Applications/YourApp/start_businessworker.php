@@ -36,10 +36,7 @@ $worker->onWorkerStart = function(){
     // 订阅broadcast事件，并注册事件回调
     Channel\Client::on('user_login', function($event_data)use($worker){
         // 向所当前worker进程的所有客户端广播消息
-        foreach($worker->connections as $connection)
-        {
-            $connection->send($event_data);
-        }
+        CustomLogger::getLogger()->info("Socket get from WebSocket A client conenct");
     });
 };
 
