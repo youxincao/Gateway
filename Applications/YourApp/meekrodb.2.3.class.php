@@ -21,7 +21,8 @@ class DB {
   // initial connection
   public static $dbName = 'athome';
   public static $user = 'root';
-  public static $password = '9rfcdv4We01coiMs';
+  //public static $password = '9rfcdv4We01coiMs';
+  public static $password = 'athome233';
   public static $host = 'localhost';
   public static $port = 3306;
   public static $encoding = 'utf-8';
