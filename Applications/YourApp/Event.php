@@ -28,7 +28,7 @@ class Event
     /**
      * 当客户端连接时触发
      * 如果业务不需此回调可以删除onConnect
-     * 
+     *
      * @param int $client_id 连接id
      * @link http://gatewayworker-doc.workerman.net/gateway-worker-development/onconnect.html
      */
@@ -38,37 +38,37 @@ class Event
         // Gateway::sendToClient($client_id, "Hello $client_id");
         // 向所有人发送 @see http://gatewayworker-doc.workerman.net/gateway-worker-development/send-to-all.html
         // Gateway::sendToAll("$client_id login");
-       CustomLogger::getLogger()->info("$client_id connected");
+        CustomLogger::getLogger()->info("$client_id connected");
     }
-    
-   /**
-    * 当客户端发来消息时触发
-    * @param int $client_id 连接id
-    * @param string $message 具体消息
-    * @link http://gatewayworker-doc.workerman.net/gateway-worker-development/onmessage.html
-    */
-   public static function onMessage($client_id, $message)
-   {
+
+    /**
+     * 当客户端发来消息时触发
+     * @param int $client_id 连接id
+     * @param string $message 具体消息
+     * @link http://gatewayworker-doc.workerman.net/gateway-worker-development/onmessage.html
+     */
+    public static function onMessage($client_id, $message)
+    {
         // 向所有人发送 @see http://gatewayworker-doc.workerman.net/gateway-worker-development/send-to-all.html
         // Gateway::sendToAll("$client_id said $message");
-       CustomLogger::getLogger()->info("$client_id [RECV] $message");
+        CustomLogger::getLogger()->info("$client_id [RECV] $message");
 
-       $data = ProtocolParser::parseProtocolData($message);
-       if(is_null($data)){
-           return ;
-       }
-       Gateway::bindUid($client_id, $data->getDeviceSn());
-       $cmdParser = CmdFactory::createCMDParserFromProtocolData($data);
-       $cmdParser->handleCmd();
-   }
-   
-   /**
-    * 当用户断开连接时触发
-    * @param int $client_id 连接id
-    */
-   public static function onClose($client_id)
-   {
-       // 向所有人发送 @see http://gatewayworker-doc.workerman.net/gateway-worker-development/send-to-all.html
-       GateWay::sendToAll("$client_id logout");
-   }
+        $data = ProtocolParser::parseProtocolData($message);
+        if(is_null($data)){
+            return ;
+        }
+        Gateway::bindUid($client_id, $data->getDeviceSn());
+        $cmdParser = CmdFactory::createCMDParserFromProtocolData($data);
+        $cmdParser->handleCmd();
+    }
+
+    /**
+     * 当用户断开连接时触发
+     * @param int $client_id 连接id
+     */
+    public static function onClose($client_id)
+    {
+        // 向所有人发送 @see http://gatewayworker-doc.workerman.net/gateway-worker-development/send-to-all.html
+        GateWay::sendToAll("$client_id logout");
+    }
 }
