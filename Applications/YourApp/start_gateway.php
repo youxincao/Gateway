@@ -12,13 +12,13 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 use \Workerman\Worker;
-use \Workerman\WebServer;
 use \GatewayWorker\Gateway;
-use \GatewayWorker\BusinessWorker;
 use \Workerman\Autoloader;
 
 // 自动加载类
 require_once __DIR__ . '/../../Workerman/Autoloader.php';
+require_once __DIR__ . '/../../Channel/src/Server.php';
+
 Autoloader::setRootPath(__DIR__);
 
 // gateway 进程，这里使用Text协议，可以用telnet测试
@@ -36,6 +36,9 @@ $gateway->startPort = 2300;
 //$gateway->pingInterval = 10;
 // 心跳数据
 //$gateway->pingData = '{"type":"ping"}';
+
+// start the chanel server
+$channel_server = new Channel\Server();
 
 /* 
 // 当客户端连接上来时，设置连接的onWebSocketConnect，即在websocket握手时的回调
